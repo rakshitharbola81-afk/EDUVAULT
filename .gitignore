@@ -1,0 +1,13 @@
+# Dependencies
+**/node_modules/
+
+# Environment Variables & Secrets
+**/.env
+
+# Uploads directory (user uploaded PDFs)
+**/uploads/*
+!**/uploads/.gitkeep
+
+# System files
+.DS_Store
+Thumbs.db
