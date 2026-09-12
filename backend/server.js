@@ -4,6 +4,7 @@ const cors = require('cors');
 const connectDB = require('./config/db');
 const noteRoutes = require('./routes/noteRoutes');
 const authRoutes = require('./routes/authRoutes');
+const uploadNotesRoute = require('./routes/uploadNotes');  
 const app = express();
 
 app.use(cors());
@@ -13,6 +14,7 @@ app.use('/uploads', express.static('uploads'));
 connectDB();
 app.use('/api/auth',authRoutes);
 app.use('/api/notes', noteRoutes);
+app.use('/api/upload-notes', uploadNotes);
 
 
 const PORT = process.env.PORT || 5000;
