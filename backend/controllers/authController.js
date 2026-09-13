@@ -61,7 +61,7 @@ exports.googleLogin=async(req,res)=>{
         if(!idToken){
             return res.status(400).json({message:"Google ID Token is required"});
         }
-        const ticken=await client.verifyIdToken({
+        const ticket=await client.verifyIdToken({
             idToken,
             audience:process.env.GOOGLE_CLIENT_ID
         });
