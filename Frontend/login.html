@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>EduVault - Portal Authentication</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body style="display: flex; align-items: center; justify-content: center; min-height: 100vh;">
+
+    <div class="glass-card" style="width: 100%; max-width: 400px; padding: 35px;">
+        <div style="text-align: center; margin-bottom: 25px;">
+            <h2 style="font-size: 1.8rem; color: #fff; margin-bottom: 5px;">Welcome Back</h2>
+            <p style="color: var(--text-sub); font-size: 0.85rem;">Sign in to access EduVault resources</p>
+        </div>
+
+        <form id="loginForm" style="display: flex; flex-direction: column; gap: 15px;">
+            <div>
+                <label
+                    style="font-size: 0.8rem; font-weight: 600; color: var(--text-sub); display: block; margin-bottom: 6px;">PORTAL
+                    ROLE</label>
+                <select id="role" onchange="toggleAdminKey()">
+                    <option value="student">Student Portal</option>
+                    <option value="admin">Administrator Portal</option>
+                </select>
+            </div>
+
+            <div>
+                <label
+                    style="font-size: 0.8rem; font-weight: 600; color: var(--text-sub); display: block; margin-bottom: 6px;">EMAIL
+                    ADDRESS</label>
+                <input type="email" id="email" required placeholder="name@eduvault.com">
+            </div>
+
+            <div>
+                <label
+                    style="font-size: 0.8rem; font-weight: 600; color: var(--text-sub); display: block; margin-bottom: 6px;">PASSWORD</label>
+                <input type="password" id="password" required placeholder="••••••••">
+            </div>
+
+            <div id="adminKeyBox" class="hidden">
+                <label
+                    style="font-size: 0.8rem; font-weight: 600; color: #fbbf24; display: block; margin-bottom: 6px;">ADMIN
+                    SECRET KEY</label>
+                <input type="password" id="adminKey" placeholder="Required for Admin role">
+            </div>
+
+            <button type="submit" class="btn" style="margin-top: 10px;">Authenticate →</button>
+        </form>
+
+        <p style="text-align: center; font-size: 0.85rem; color: var(--text-sub); margin-top: 20px;">
+            New student? <a href="/signup" style="color: var(--primary); text-decoration: none;">Create an account</a>
+        </p>
+    </div>
+
+    <script>
+        function toggleAdminKey() {
+            const role = document.getElementById('role').value;
+            document.getElementById('adminKeyBox').classList.toggle('hidden', role !== 'admin');
+        }
+
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const payload = {
+                role: document.getElementById('role').value,
+                email: document.getElementById('email').value,
+                password: document.getElementById('password').value,
+                adminKey: document.getElementById('adminKey').value
+            };
+
+            const res = await fetch('/api/auth/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+            const data = await res.json();
+
+            if (data.success) {
+                localStorage.setItem('token', data.token);
+                localStorage.setItem('role', data.role);
+                localStorage.setItem('name', data.name);
+
+                if (data.role === 'admin') window.location.href = '/admin-dashboard';
+                else window.location.href = '/student-dashboard';
+            } else {
+                alert(data.message);
+            }
+        });
+    </script>
+</body>
+
+</html>

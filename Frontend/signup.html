@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>EduVault - Register Account</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body style="display: flex; align-items: center; justify-content: center; min-height: 100vh;">
+
+    <div class="glass-card" style="width: 100%; max-width: 400px; padding: 35px;">
+        <div style="text-align: center; margin-bottom: 25px;">
+            <h2 style="font-size: 1.8rem; color: #fff; margin-bottom: 5px;">Student Portal</h2>
+            <p style="color: var(--text-sub); font-size: 0.85rem;">Register to access and upload notes</p>
+        </div>
+
+        <form id="signupForm" style="display: flex; flex-direction: column; gap: 15px;">
+            <div>
+                <label
+                    style="font-size: 0.8rem; font-weight: 600; color: var(--text-sub); display: block; margin-bottom: 6px;">FULL
+                    NAME</label>
+                <input type="text" id="name" required placeholder="John Doe">
+            </div>
+
+            <div>
+                <label
+                    style="font-size: 0.8rem; font-weight: 600; color: var(--text-sub); display: block; margin-bottom: 6px;">STUDENT
+                    EMAIL</label>
+                <input type="email" id="email" required placeholder="student@eduvault.com">
+            </div>
+
+            <div>
+                <label
+                    style="font-size: 0.8rem; font-weight: 600; color: var(--text-sub); display: block; margin-bottom: 6px;">PASSWORD</label>
+                <input type="password" id="password" required placeholder="••••••••">
+            </div>
+
+            <button type="submit" class="btn" style="margin-top: 10px;">Register Account →</button>
+        </form>
+
+        <p style="text-align: center; font-size: 0.85rem; color: var(--text-sub); margin-top: 20px;">
+            Already have an account? <a href="/login" style="color: var(--primary); text-decoration: none;">Sign In</a>
+        </p>
+    </div>
+
+    <script>
+        document.getElementById('signupForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const payload = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                password: document.getElementById('password').value
+            };
+
+            const res = await fetch('/api/auth/signup', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+            const data = await res.json();
+
+            if (data.success) {
+                alert('Signup Successful!');
+                window.location.href = '/login';
+            } else {
+                alert(data.message);
+            }
+        });
+    </script>
+</body>
+
+</html>

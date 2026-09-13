@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Student Workspace - EduVault</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+
+    <header class="nav-header">
+        <div class="nav-container">
+            <div class="logo">EduVault⚡</div>
+            <div style="display: flex; align-items: center; gap: 15px;">
+                <span style="font-size: 0.9rem; color: var(--text-sub);">User: <strong id="userName"
+                        style="color: #fff;"></strong></span>
+                <button onclick="logout()" class="btn"
+                    style="width: auto; padding: 6px 14px; background: rgba(255,255,255,0.05); border: 1px solid var(--panel-border);">Logout</button>
+            </div>
+        </div>
+    </header>
+
+    <main style="max-width: 1100px; margin: 30px auto; padding: 0 20px;">
+
+        <!-- Upload Glass Form -->
+        <div class="glass-card" style="padding: 25px; margin-bottom: 30px;">
+            <h3 style="font-size: 1.2rem; color: #fff; margin-bottom: 15px;">Upload Document for AI Verification</h3>
+            <form id="uploadForm"
+                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; align-items: end;">
+                <div>
+                    <label style="font-size: 0.8rem; color: var(--text-sub); display: block; margin-bottom: 6px;">NOTE
+                        TITLE</label>
+                    <input type="text" id="title" required placeholder="e.g. Operating System Notes">
+                </div>
+                <div>
+                    <label
+                        style="font-size: 0.8rem; color: var(--text-sub); display: block; margin-bottom: 6px;">SEMESTER</label>
+                    <select id="semester">
+                        <option value="Sem 1">Sem 1</option>
+                        <option value="Sem 2">Sem 2</option>
+                        <option value="Sem 3">Sem 3</option>
+                        <option value="Sem 4">Sem 4</option>
+                        <option value="Sem 5">Sem 5</option>
+                        <option value="Sem 6">Sem 6</option>
+                    </select>
+                </div>
+                <div>
+                    <label style="font-size: 0.8rem; color: var(--text-sub); display: block; margin-bottom: 6px;">ATTACH
+                        PDF</label>
+                    <input type="file" id="pdfFile" accept="application/pdf" required style="padding: 8px;">
+                </div>
+                <div>
+                    <button type="submit" class="btn">Upload File</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Repository Section -->
+        <div>
+            <h3 style="font-size: 1.2rem; color: #fff; margin-bottom: 15px;">Available Knowledge Base</h3>
+            <div id="notesGrid"
+                style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px;"></div>
+        </div>
+
+    </main>
+
+    <script>
+        const token = localStorage.getItem('token');
+        if (!token || localStorage.getItem('role') !== 'student') window.location.href = '/login';
+        document.getElementById('userName').innerText = localStorage.getItem('name');
+
+        async function loadNotes() {
+            const res = await fetch('/api/notes');
+            const data = await res.json();
+            const grid = document.getElementById('notesGrid');
+            grid.innerHTML = '';
+
+            data.notes.forEach(note => {
+                grid.innerHTML += `
+          <div class="glass-card" style="padding: 20px; display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                <span class="badge ${note.isAiVerified ? 'badge-verified' : 'badge-pending'}">
+                  ${note.isAiVerified ? 'Groq Verified' : 'AI Processing'}
+                </span>
+                <span style="font-size: 0.8rem; color: var(--text-sub);">${note.semester}</span>
+              </div>
+              <h4 style="color: #fff; font-size: 1.1rem; margin-bottom: 6px;">${note.title}</h4>
+              <p style="font-size: 0.85rem; color: var(--text-sub); margin-bottom: 15px;">Uploaded by: ${note.uploadedBy}</p>
+            </div>
+            <a href="${note.fileUrl}" target="_blank" class="btn" style="padding: 8px; font-size: 0.85rem;">Download / View PDF</a>
+          </div>
+        `;
+            });
+        }
+
+        document.getElementById('uploadForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData();
+            formData.append('title', document.getElementById('title').value);
+            formData.append('semester', document.getElementById('semester').value);
+            formData.append('pdfFile', document.getElementById('pdfFile').files[0]);
+
+            const res = await fetch('/api/notes/upload', {
+                method: 'POST',
+                headers: { 'Authorization': token },
+                body: formData
+            });
+            const data = await res.json();
+            if (data.success) {
+                alert('File successfully uploaded & Groq AI validated!');
+                loadNotes();
+            } else {
+                alert(data.message);
+            }
+        });
+
+        function logout() { localStorage.clear(); window.location.href = '/login'; }
+        loadNotes();
+    </script>
+</body>
+
+</html>

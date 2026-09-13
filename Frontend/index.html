@@ -4,208 +4,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NoteVault Premium - Academic Resource Portal</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
-        rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: { sans: ['Inter', 'sans-serif'] },
-                    colors: {
-                        brand: {
-                            bg: '#030712',
-                            card: 'rgba(17, 24, 39, 0.7)',
-                            primary: '#3b82f6',
-                            secondary: '#a855f7',
-                        }
-                    },
-                }
-            }
-        }
-    </script>
-    <style>
-        .glass-panel {
-            background: rgba(17, 24, 39, 0.7);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-        }
-
-        .glow-card:hover {
-            box-shadow: 0 0 20px rgba(59, 130, 246, 0.15);
-            border-color: rgba(59, 130, 246, 0.4);
-        }
-
-        .fade-in {
-            animation: fadeIn 0.6s ease-out forwards;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .sem-btn-active {
-            background: rgba(59, 130, 246, 0.1) !important;
-            color: #3b82f6 !important;
-            border-color: rgba(59, 130, 246, 0.4) !important;
-        }
-    </style>
+    <title>EduVault - Smart Academic Repository</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 
-<body class="bg-brand-bg text-gray-300 font-sans antialiased min-h-screen">
+<body>
 
-    <nav class="fixed top-0 left-0 right-0 z-50 glass-panel border-b border-gray-800/50">
-        <div class="max-w-[1500px] mx-auto px-6">
-            <div class="flex items-center justify-between h-16">
-                <div class="flex items-center gap-2 cursor-pointer" onclick="window.location.reload()">
-                    <div class="w-7 h-7 bg-gradient-to-br from-brand-primary to-brand-secondary rounded-lg"></div>
-                    <span class="text-xl font-extrabold text-white tracking-tighter">Note<span
-                            class="text-gray-500">Vault</span></span>
-                </div>
-                <div class="hidden md:block flex-1 max-w-xl mx-12">
-                    <input type="text" id="notesSearch" placeholder="Search by subject, title or author..."
-                        class="w-full bg-gray-900/50 border border-gray-800 rounded-full py-2 px-6 text-sm text-gray-100 outline-none focus:ring-1 focus:ring-brand-primary">
-                </div>
-                <button onclick="openUploadModal()"
-                    class="bg-white text-gray-950 px-5 py-2 rounded-full text-sm font-bold hover:bg-gray-200 transition-all transform hover:scale-105">
-                    Upload Content
-                </button>
+    <header class="nav-header">
+        <div class="nav-container">
+            <div class="logo">EduVault⚡</div>
+            <div class="nav-links">
+                <a href="/">Home</a>
+                <a href="/login" class="btn" style="width: auto; padding: 8px 18px;">Login</a>
+                <a href="/signup" class="btn"
+                    style="width: auto; padding: 8px 18px; background: transparent; border: 1px solid var(--panel-border);">Register</a>
             </div>
         </div>
-    </nav>
+    </header>
 
-    <main class="max-w-[1500px] mx-auto px-6 pt-24 pb-16">
+    <main style="max-width: 1100px; margin: 80px auto 0; padding: 0 20px; text-align: center;">
+        <div
+            style="display: inline-block; padding: 6px 16px; border-radius: 20px; background: rgba(99, 102, 241, 0.1); border: 1px solid rgba(99, 102, 241, 0.3); font-size: 0.85rem; color: #818cf8; margin-bottom: 25px;">
+            Powered by Groq AI Verification Engine
+        </div>
 
-        <header class="relative py-20 mb-12 rounded-3xl overflow-hidden border border-gray-800/50 text-center fade-in">
-            <div class="relative z-10">
-                <span class="text-brand-primary font-bold tracking-widest text-xs uppercase mb-4 block">Centralized
-                    Learning Hub</span>
-                <h1 class="text-5xl md:text-7xl font-extrabold text-white tracking-tighter mb-6">
-                    Elevate Your Studies<br>With Peer <span
-                        class="text-transparent bg-clip-text bg-gradient-to-r from-brand-primary to-brand-secondary">Resources</span>
-                </h1>
-                <p class="text-gray-400 max-w-2xl mx-auto text-lg mb-8">
-                    Access handwritten notes, organized study materials, and academic resources shared by students for
-                    students.
-                </p>
-                <div class="flex justify-center gap-4">
-                    <button onclick="document.getElementById('library-start').scrollIntoView({behavior: 'smooth'})"
-                        class="bg-brand-primary text-white px-8 py-3 rounded-xl font-bold transition hover:opacity-90">Browse
-                        Library</button>
-                    <button onclick="openUploadModal()"
-                        class="bg-gray-900 text-white px-8 py-3 rounded-xl font-bold border border-gray-800 hover:bg-gray-800 transition">Contribute
-                        Now</button>
-                </div>
+        <h1
+            style="font-size: 3.5rem; font-weight: 800; line-height: 1.2; margin-bottom: 20px; background: linear-gradient(135deg, #fff 30%, var(--text-sub)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+            Centralized Campus Knowledge,<br>Verified Automatically.
+        </h1>
+
+        <p style="color: var(--text-sub); font-size: 1.15rem; max-width: 650px; margin: 0 auto 40px; line-height: 1.6;">
+            EduVault allows students to seamlessly share semester resources while Groq AI scans PDF content in real-time
+            for spam-free study materials.
+        </p>
+
+        <div style="display: flex; gap: 15px; justify-content: center; margin-bottom: 70px;">
+            <a href="/signup" class="btn" style="width: auto; padding: 14px 32px; font-size: 1rem;">Get Started as
+                Student</a>
+            <a href="/login" class="btn"
+                style="width: auto; padding: 14px 32px; font-size: 1rem; background: rgba(255, 255, 255, 0.05); border: 1px solid var(--panel-border);">Admin
+                Portal</a>
+        </div>
+
+        <div
+            style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; text-align: left;">
+            <div class="glass-card" style="padding: 25px;">
+                <h3 style="margin-bottom: 10px; color: #fff;">🤖 Groq AI Analysis</h3>
+                <p style="color: var(--text-sub); font-size: 0.9rem; line-height: 1.5;">Every uploaded PDF is inspected
+                    for structural validity and quality score instantly.</p>
             </div>
-        </header>
-
-        <div id="library-start" class="flex flex-col lg:flex-row gap-10">
-            <aside class="w-full lg:w-72 flex-shrink-0">
-                <div class="sticky top-24 glass-panel rounded-2xl p-7 border border-gray-800/50">
-                    <h2 class="text-sm font-semibold text-gray-500 uppercase mb-6 tracking-wider">Semesters</h2>
-                    <div class="flex flex-col gap-2" id="semFilters">
-                        <button onclick="filterBySem('all')"
-                            class="sem-btn w-full text-left px-4 py-2.5 rounded-xl transition-all sem-btn-active font-medium border border-gray-800">
-                            All Semesters
-                        </button>
-                        <div class="grid grid-cols-2 gap-2 mt-2">
-                            <button onclick="filterBySem(1)"
-                                class="sem-btn border border-gray-800 bg-gray-900/40 py-2 rounded-lg text-xs hover:border-brand-primary transition">Sem
-                                1</button>
-                            <button onclick="filterBySem(2)"
-                                class="sem-btn border border-gray-800 bg-gray-900/40 py-2 rounded-lg text-xs hover:border-brand-primary transition">Sem
-                                2</button>
-                            <button onclick="filterBySem(3)"
-                                class="sem-btn border border-gray-800 bg-gray-900/40 py-2 rounded-lg text-xs hover:border-brand-primary transition">Sem
-                                3</button>
-                            <button onclick="filterBySem(4)"
-                                class="sem-btn border border-gray-800 bg-gray-900/40 py-2 rounded-lg text-xs hover:border-brand-primary transition">Sem
-                                4</button>
-                            <button onclick="filterBySem(5)"
-                                class="sem-btn border border-gray-800 bg-gray-900/40 py-2 rounded-lg text-xs hover:border-brand-primary transition">Sem
-                                5</button>
-                            <button onclick="filterBySem(6)"
-                                class="sem-btn border border-gray-800 bg-gray-900/40 py-2 rounded-lg text-xs hover:border-brand-primary transition">Sem
-                                6</button>
-                            <button onclick="filterBySem(7)"
-                                class="sem-btn border border-gray-800 bg-gray-900/40 py-2 rounded-lg text-xs hover:border-brand-primary transition">Sem
-                                7</button>
-                            <button onclick="filterBySem(8)"
-                                class="sem-btn border border-gray-800 bg-gray-900/40 py-2 rounded-lg text-xs hover:border-brand-primary transition">Sem
-                                8</button>
-                        </div>
-                    </div>
-                </div>
-            </aside>
-
-            <section class="flex-1">
-                <h3 class="text-2xl font-bold text-white mb-8 flex items-center gap-3">
-                    <span id="libraryTitle">Notes Library</span>
-                    <span class="h-px flex-1 bg-gray-800/50"></span>
-                </h3>
-                <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6" id="notesGrid">
-                </div>
-            </section>
+            <div class="glass-card" style="padding: 25px;">
+                <h3 style="margin-bottom: 10px; color: #fff;">⚡ Role-Based Control</h3>
+                <p style="color: var(--text-sub); font-size: 0.9rem; line-height: 1.5;">Strict separation between
+                    Student uploads and Admin repository deletion privileges.</p>
+            </div>
+            <div class="glass-card" style="padding: 25px;">
+                <h3 style="margin-bottom: 10px; color: #fff;">📂 Semester Categorization</h3>
+                <p style="color: var(--text-sub); font-size: 0.9rem; line-height: 1.5;">Multi-filter search engine for
+                    quick access across departments and semesters.</p>
+            </div>
         </div>
     </main>
-
-    <div id="uploadModal"
-        class="fixed inset-0 z-[100] hidden bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
-        <div class="glass-panel w-full max-w-md rounded-3xl p-8 border border-gray-800 shadow-2xl">
-            <h2 class="text-2xl font-bold text-white mb-6">Upload Notes</h2>
-            <form id="uploadForm" class="space-y-4">
-                <input type="text" id="title" placeholder="Title (e.g., Computer Architecture)"
-                    class="w-full bg-gray-900 border border-gray-800 rounded-xl p-3 text-white outline-none focus:border-brand-primary"
-                    required>
-                <input type="text" id="author" placeholder="Author Name"
-                    class="w-full bg-gray-900 border border-gray-800 rounded-xl p-3 text-white outline-none focus:border-brand-primary"
-                    required>
-                <div class="flex gap-4">
-                    <input type="text" id="department" placeholder="Department"
-                        class="w-1/2 bg-gray-900 border border-gray-800 rounded-xl p-3 text-white outline-none focus:border-brand-primary"
-                        required>
-                    <input type="number" id="semester" placeholder="Sem (1-8)"
-                        class="w-1/2 bg-gray-900 border border-gray-800 rounded-xl p-3 text-white outline-none focus:border-brand-primary"
-                        required min="1" max="8">
-                </div>
-                <textarea id="description" placeholder="Brief description of the content..."
-                    class="w-full bg-gray-900 border border-gray-800 rounded-xl p-3 text-white outline-none focus:border-brand-primary"></textarea>
-                <div
-                    class="border-2 border-dashed border-gray-800 rounded-xl p-6 text-center hover:border-brand-primary transition cursor-pointer relative">
-                    <input type="file" id="pdfFile" accept=".pdf" class="absolute inset-0 opacity-0 cursor-pointer"
-                        required>
-                    <p id="fileLabel" class="text-sm text-gray-400">Attach PDF Document</p>
-                </div>
-                <div class="flex gap-3 pt-4">
-                    <button type="button" onclick="closeUploadModal()"
-                        class="flex-1 px-4 py-2 border border-gray-700 rounded-xl text-gray-400 hover:bg-gray-800">Cancel</button>
-                    <button type="submit" id="submitBtn"
-                        class="flex-1 bg-brand-primary text-white py-2 rounded-xl font-bold">Post Content</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <script src="script.js"></script>
 </body>
 
 </html>
-
-
-
-
-
-
-
-
-
-
